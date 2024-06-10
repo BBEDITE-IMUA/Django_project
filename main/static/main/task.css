@@ -1,0 +1,131 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #000; /* black background */
+    color: #fff; /* white text */
+    background-image: url('images/phon.jpg');
+    background-size: cover;
+    background-position: center;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('images/phon.jpg');
+}
+
+.container {
+    width: 70%;
+    margin: 0 auto;
+    padding: 40px;
+}
+
+.title {
+    text-align: center;
+    font-size: 5em;
+    margin-bottom: 20px;
+    color: #fff; /* white text */
+}
+
+.links {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 10px;
+    margin-top: 40px;
+}
+
+.link {
+    text-decoration: none;
+    color: #000; /* black text */
+    background-color: #ff0; /* yellow background */
+    padding: 10px 20px;
+    font-size: 1.8em;
+    border-radius: 50px;
+    transition: background-color 0.3s ease;
+    line-height: 1.5;
+}
+
+.link:hover {
+    background-color: #b3b300; /* darker yellow on hover */
+}
+
+.form {
+    margin-bottom: 5px;
+}
+
+.submit-button {
+    text-decoration: none;
+    color: #000; /* black text */
+    background-color: #ff0; /* yellow background */
+    padding: 10px 20px;
+    font-size: 1.8em;
+    border-radius: 50px;
+    transition: background-color 0.3s ease;
+    border: none;
+    cursor: pointer;
+    display: block;
+    margin: auto;
+}
+
+.submit-button:hover {
+    background-color: #b3b300; /* darker yellow on hover */
+}
+
+.task-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.tasks-container {
+    width: 100%;
+}
+
+.tasks-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 70%;
+    margin: 0 auto;
+}
+
+.task-item {
+    flex-basis: calc(33.33% - 20px); /* width of each item, subtracting the margin */
+    box-sizing: border-box;
+    margin: 40px;
+    padding-bottom: 1px;
+    line-height: 2;
+    text-align: center;
+    font-size: 1.8em;
+    background-color: #333; /* dark grey background */
+    border-radius: 10px;
+    padding: 20px;
+    transition: background-color 0.3s ease;
+}
+
+.task-item:hover {
+    background-color: #444; /* slightly lighter grey on hover */
+}
+
+.link-item {
+    text-decoration: none;
+    color: #000; /* black text */
+    background-color: #ff0; /* yellow background */
+    padding: 1px 10px;
+    font-size: 1.2em;
+    border-radius: 50px;
+    transition: background-color 0.3s ease;
+    line-height: 1.5;
+}
+
+.link-item:hover {
+    background-color: #b3b300; /* darker yellow on hover */
+}
+
+.user-info {
+    position: absolute;
+    top: 10px;
+    right: 50px;
+    color: #fff;
+}
+
+.error {
+    color: red;
+    font-size: 1em;
+    text-align: center;
+    margin-top: 20px;
+}

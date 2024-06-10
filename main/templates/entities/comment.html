@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'main/comment.css' %}">
+    <style>
+        ul {
+            list-style-type: none;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="links">
+        <a class="link" href="{% url 'main_page' %}">На главную</a>
+        <a class="link" href="{% url 'students_page' %}">Список студентов</a>
+        <a class="link" href="{% url 'tasks_page' %}">Список задач</a>
+        <a class="link" href="{% url 'comments_page' %}">Список комментариев</a>
+    </div>
+    <hr>
+    <h1 class="title">Комментарий</h1>
+    <div class="task-item">
+    <ul class="comment-list">
+        <li class="comment-item">
+            id: {{ comment.id }}<br>
+            Дата публикации: {{ comment.date_publication }}<br>
+            Задача: <a class="link-item" href="{% url 'task' comment.task_id.id %}">{{ comment.task_id }}</a><br>
+            Студент оставивший комментарий: <a class="link-item" href="{% url 'student' comment.student.id %}">{{ comment.student }}</a><br>
+            Текст комментария: {{ comment.text_comment }}<br>
+        </li>
+        {% if request.user.is_staff or request.user == comment.student.user %}
+            <a class="link-item" href="{% url 'put_comment' comment.id %}">Изменить комментарий</a><br>
+            <a class="link-item" href="{% url 'delete_comment' comment.id %}">Удалить комментарий</a><br>
+        {% endif %}
+    </ul>
+    </div>
+</div>
+{% endblock %}
+

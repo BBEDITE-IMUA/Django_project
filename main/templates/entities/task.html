@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'main/task.css' %}">
+    <style>
+        ul {
+            list-style-type: none;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="links">
+        <a class="link" href="{% url 'main_page' %}">На главную</a>
+        <a class="link" href="{% url 'students_page' %}">Список студентов</a>
+        <a class="link" href="{% url 'tasks_page' %}">Список задач</a>
+    </div>
+    <hr>
+    <h1 class="title">Задача</h1>
+    <div class="task-item">
+    <ul class="task-details">
+        {% if messages %}
+        <ul class="error">
+            {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        <li>
+            id: {{ task.id }}<br>
+            Пользователь создавший задачу: {{ task.user }}<br>
+            Название задачи: {{ task.name }}<br>
+            Описание задачи: {{ task.description }}<br>
+            Сложность задачи: {{ task.difficulty }}<br>
+            <ul class="students-list">
+                Студенты выполнившие задачу:
+                {% for student in task.students.all %}
+                    <a class="link-item" href="{% url 'student' student.id %}">{{ student }}</a>{% if not forloop.last %}, {% endif %}
+                {% endfor %}
+            </ul>
+            Комментарии: 
+                {% for comment in task.related_comments.all %}
+                    <a class="link-item" href="{% url 'comment' comment.id %}">{{ forloop.counter }}</a>{% if not forloop.last %}, {% endif %}
+                {% endfor %}
+            <br>
+            <a class="link-item" href="{% url 'create_comment' task.id %}">Создать комментарий</a><br>
+        </li>
+        <a class="link-item" href="{% url 'complete_task' task.id %}">Решить задачу</a><br>
+        <a class="link-item" href="{% url 'task_solutions' task.id %}">Посмотреть решения</a><br>
+        {% if request.user.is_staff or request.user == task.user %}
+            <a class="link-item" href="{% url 'put_task' task.id %}">Изменить задачу</a><br>
+            <a class="link-item" href="{% url 'delete_task' task.id %}">Удалить задачу</a><br>
+        {% endif %}
+    </ul>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+    <link rel="stylesheet" href="{% static 'main/main.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="title">Приветствую на главной странице сайта!</h1>
+    <div class="links">
+        <a class="link-item" href="{% url 'tasks_page' %}">Задачи</a>
+        <a class="link-item" href="{% url 'students_page' %}">Студенты</a>
+    </div>
+    <div class="user-info">
+        {% if user.is_authenticated %}
+            <p>Вы вошли как: {{ user.username }}</p>
+            <a class="link-item" href="{% url 'logout' %}">Выйти</a>
+        {% else %}
+            <a class="link-item" href="{% url 'register' %}">Регистрация</a>
+            <a class="link-item" href="{% url 'login' %}">Войти</a>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

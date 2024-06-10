@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'main/student.css' %}">
+    <style>
+        ul {
+            list-style-type: none;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="links">
+        <a class="link" href="{% url 'main_page' %}">На главную</a>
+        <a class="link" href="{% url 'students_page' %}">Список студентов</a>
+        <a class="link" href="{% url 'tasks_page' %}">Список задач</a>
+    </div>
+    <hr>
+    <h1 class="title">Студент</h1>
+    <div class="task-item">
+    <ul class="student-details">
+        <li>
+            id: {{ student.id }}<br>
+            Пользователь: {{ student.user }}<br>
+            Псевдоним: {{ student }}<br>
+            Дата регистрации: {{ student.registration_date }}<br>
+            Рейтинг: {{ student.rating }}<br>
+            <ul class="tasks-list">
+                Выполненные задачи:
+                {% for task in student.tasks.all %}
+                    <a class="link-item" href="{% url 'task' task.id %}">{{ task }}</a>{% if not forloop.last %}, {% endif %}
+                    {% if forloop.last %}
+                        <br>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </li>
+        {% if request.user.is_staff or request.user == student.user %}
+            <a class="link-item" href="{% url 'put_student' student.id %}">Изменить студента</a><br>
+            <a class="link-item" href="{% url 'delete_student' student.id %}">Удалить студента</a><br>
+        {% endif %}
+    </ul>
+    </div>
+</div>
+{% endblock %}

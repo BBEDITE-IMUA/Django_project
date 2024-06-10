@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'main/students.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="links">
+        <a class="link" href="{% url 'main_page' %}">На главную</a>
+        <a class="link" href="{% url 'tasks_page' %}">Список задач</a>
+    </div>
+    <hr>
+
+    <h1 class="title">Студенты</h1>
+    <form class="form" action="{% url 'create_student' %}" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input class="submit-button" type="submit" value="Создать студента">
+    </form>
+    <ul class="task-list">
+        {% for student in students %}
+            <li class="task-item">
+                id: <a class="link-item" href="{% url 'student' student.id %}"> {{ student.id }}</a><br>
+                Пользователь: {{ student.user }}<br>
+                Псевдоним: {{ student }}<br>
+                Выполненные задачи:
+                {% for task in student.tasks.all %}
+                    <a class="link-item" href="{% url 'task' task.id %}">{{ task }}</a>{% if not forloop.last %}, {% endif %}
+                    {% if forloop.last %}
+                        <br>
+                    {% endif %}
+                {% endfor %}
+                Рейтинг: {{ student.rating }}<br>
+            </li>
+            {% if not forloop.last %}
+                <hr>
+            {% endif %}
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

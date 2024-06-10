@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+    <link rel="stylesheet" href="{% static 'main/task_solutions.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="links">
+        <a class="link" href="{% url 'main_page' %}">На главную</a>
+        <a class="link" href="{% url 'tasks_page' %}">Список задач</a>
+        <a class="link" href="{% url 'students_page' %}">Список студентов</a>
+    </div>
+    <hr>
+
+    <h1 class="title">Решения для задачи {{ tasks.name }}</h1>
+    <div class="tasks-container">
+        <div class="tasks-inner">
+            <ul class="task-list">
+                {% for solution in solutions %}
+                    <li class="task-item">
+                        <h2>Студент: {{ solution.student }}</h2>
+                        <p class="answer">Ответ: {{ solution.solution }}</p>
+                    </li>
+                {% endfor %}
+             </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

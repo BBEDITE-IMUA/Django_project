@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Список комментариев{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'main/comments.css' %}">
+    <style>
+        ul {
+            list-style-type: none;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="links">
+        <a class="link" href="{% url 'main_page' %}">На главную</a>
+        <a class="link" href="{% url 'students_page' %}">Список студентов</a>
+        <a class="link" href="{% url 'tasks_page' %}">Список задач</a>
+    </div>
+    <hr>
+    <h1 class="title">Комментарии</h1>
+    <ul class="comment-list">
+        {% for comment in comments %}
+            <li class="task-item">
+                <p>id: <a class="link-item" href="{% url 'comment' comment.id %}">{{ comment.id }}</a></p>
+                <p>Задача: <a class="link-item" href="{% url 'task' comment.task_id.id %}">{{ comment.task_id }}</a></p>
+                <p>Студент оставивший комментарий: <a class="link-item" href="{% url 'student' comment.student.id %}">{{ comment.student }}</a></p>
+                <p>Текст комментария: {{ comment.text_comment }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
